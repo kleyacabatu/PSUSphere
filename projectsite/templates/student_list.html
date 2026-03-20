@@ -3,14 +3,14 @@
 {% block content %}
 <div class="content">
     <div class="container-fluid">
-        <h4 class="page-title">Org Members</h4>
+        <h4 class="page-title">Students</h4>
 
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
 
                     <div class="card-header">
-                        <div class="card-title">List of Org Members</div>
+                        <div class="card-title">List of Students</div>
                         <div class="card-category">Page Subtitle</div>
                     </div>
 
@@ -32,8 +32,8 @@
 
                         <div class="col-md-6">
                             <div class="pull-right">
-                                <a href="{% url 'orgmember-add' %}" class="btn btn-success btn-rounded">
-                                    Add Org Member
+                                <a href="{% url 'student-add' %}" class="btn btn-success btn-rounded">
+                                    Add Student
                                 </a>
                             </div>
                         </div>
@@ -43,10 +43,10 @@
                         <table class="table table-striped mt-3">
                             <thead>
                                 <tr>
+                                    <th scope="col">ID Number</th>
                                     <th scope="col">Name</th>
-                                    <th scope="col">Organization</th>
-                                    <th scope="col">Position</th>
-                                    <th scope="col">Email</th>
+                                    <th scope="col">College</th>
+                                    <th scope="col">Program</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -54,14 +54,14 @@
                             <tbody>
                                 {% for object in object_list %}
                                 <tr>
-                                    <td>{{ object.name }}</td>
-                                    <td>{{ object.organization }}</td>
-                                    <td>{{ object.position }}</td>
-                                    <td>{{ object.email }}</td>
+                                    <td>{{ object.student_id }}</td>
+                                    <td>{{ object.lastname }}, {{ object.firstname }}</td>
+                                    <td>{{ object.program.college.college_name }}</td>
+                                    <td>{{ object.program.prog_name }}</td>
 
                                     <td>
-                                        <a href="{% url 'orgmember-update' object.id %}">Edit</a> |
-                                        <a href="{% url 'orgmember-delete' object.id %}">Delete</a>
+                                        <a href="{% url 'student-update' object.id %}">Edit</a> |
+                                        <a href="{% url 'student-delete' object.id %}">Delete</a>
                                     </td>
                                 </tr>
 
