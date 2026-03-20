@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-xp@o@cwa2d$81=(5-w&75ju1z314^n32sj86v1_$h)ntj3-qf!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['kleyacabatu.pythonanywhere.com', '127.0.0.1']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -38,9 +38,25 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django.contrib.sites',    
+    'allauth', 
+    'allauth.account', 
+    'allauth.socialaccount', 
+ 
+    'allauth.socialaccount.providers.google', 
+    'allauth.socialaccount.providers.github', 
+
     'studentorg',
     'widget_tweaks',
 ]
+ 
+SITE_ID = 2 
+ 
+AUTHENTICATION_BACKENDS = [ 
+    'django.contrib.auth.backends.ModelBackend',       
+    'allauth.account.auth_backends.AuthenticationBackend', 
+] 
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -48,6 +64,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'allauth.account.middleware.AccountMiddleware', 
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -122,3 +139,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = '/accounts/login/' # where @login_required will send users
+LOGIN_REDIRECT_URL = '/' # where to go after successful login
+LOGOUT_REDIRECT_URL = '/accounts/login/' # after logout, go back to login
+ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/' # where to redirect after logout
+ACCOUNT_LOGOUT_ON_GET = True # logout immediately on GET
+ACCOUNT_LOGIN_METHODS = {"username", "email"} # allow login with username OR email
+ACCOUNT_SIGNUP_FIELDS = [
+"username*",
+"email*",
+"password1*",
+"password2*",
+]
