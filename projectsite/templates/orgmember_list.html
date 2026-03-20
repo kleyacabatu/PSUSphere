@@ -43,10 +43,11 @@
                         <table class="table table-striped mt-3">
                             <thead>
                                 <tr>
+                                    <th scope="col">Student ID</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Organization</th>
-                                    <th scope="col">Position</th>
-                                    <th scope="col">Email</th>
+                                    <th scope="col">Program</th>
+                                    <th scope="col">Date Joined</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -54,10 +55,11 @@
                             <tbody>
                                 {% for object in object_list %}
                                 <tr>
-                                    <td>{{ object.name }}</td>
-                                    <td>{{ object.organization }}</td>
-                                    <td>{{ object.position }}</td>
-                                    <td>{{ object.email }}</td>
+                                    <td>{{ object.student.student_id }}</td>
+                                    <td>{{ object.student.lastname }}, {{ object.student.firstname }}</td>
+                                    <td>{{ object.organization.name }}</td>
+                                    <td>{{ object.student.program.prog_name }}</td>
+                                    <td>{{ object.date_joined }}</td>
 
                                     <td>
                                         <a href="{% url 'orgmember-update' object.id %}">Edit</a> |
@@ -67,7 +69,7 @@
 
                                 {% empty %}
                                 <tr>
-                                    <td colspan="5" style="text-align: center">
+                                    <td colspan="6" style="text-align: center">
                                         <p class="text-sm font-weight-bold mb-0">No Records Found</p>
                                     </td>
                                 </tr>
