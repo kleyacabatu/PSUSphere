@@ -44,7 +44,6 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Name</th>
-                                    <th scope="col">Description</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -52,8 +51,7 @@
                             <tbody>
                                 {% for object in object_list %}
                                 <tr>
-                                    <td>{{ object.name }}</td>
-                                    <td>{{ object.description }}</td>
+                                    <td>{{ object.prog_name }}</td>
 
                                     <td>
                                         <a href="{% url 'program-update' object.id %}">Edit</a> |
@@ -63,7 +61,7 @@
 
                                 {% empty %}
                                 <tr>
-                                    <td colspan="3" style="text-align: center">
+                                    <td colspan="2" style="text-align: center">
                                         <p class="text-sm font-weight-bold mb-0">No Records Found</p>
                                     </td>
                                 </tr>
