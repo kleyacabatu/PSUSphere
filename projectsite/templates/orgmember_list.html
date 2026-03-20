@@ -4,27 +4,24 @@
 <div class="content">
     <div class="container-fluid">
         <h4 class="page-title">Org Members</h4>
-
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
 
                     <div class="card-header">
                         <div class="card-title">List of Org Members</div>
-                        <div class="card-category">Page Subtitle</div>
+                        <div class="card-category">Organization membership records</div>
                     </div>
 
                     <br />
 
                     <div class="col-md-12 row">
                         <div class="col-md-6">
-                            <form class="navbar-left navbar-form nav-search mr-md-3" action="">
+                            <form class="navbar-left navbar-form nav-search mr-md-3" method="get" action="">
                                 <div class="input-group">
-                                    <input type="text" placeholder="Search ..." class="form-control" />
+                                    <input type="text" name="q" class="form-control" placeholder="Search..." value="{{ request.GET.q }}">
                                     <div class="input-group-append">
-                                        <span class="input-group-text">
-                                            <i class="la la-search search-icon"></i>
-                                        </span>
+                                        <span class="input-group-text"><i class="la la-search search-icon"></i></span>
                                     </div>
                                 </div>
                             </form>
@@ -32,11 +29,26 @@
 
                         <div class="col-md-6">
                             <div class="pull-right">
-                                <a href="{% url 'orgmember-add' %}" class="btn btn-success btn-rounded">
-                                    Add Org Member
-                                </a>
+                                <a href="{% url 'orgmember-add' %}" class="btn btn-success btn-rounded">Add Org Member</a>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <form method="get" class="row g-2 align-items-center">
+                            <div class="col-auto">
+                                <label for="sort_by" class="col-form-label">Sort by</label>
+                            </div>
+                            <div class="col-auto">
+                                <select id="sort_by" name="sort_by" class="form-control form-control-sm">
+                                    <option value="student__lastname" {% if request.GET.sort_by == "student__lastname" %}selected{% endif %}>Student Name</option>
+                                    <option value="date_joined" {% if request.GET.sort_by == "date_joined" %}selected{% endif %}>Date Joined</option>
+                                </select>
+                            </div>
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-primary btn-sm btn-rounded">Apply</button>
+                            </div>
+                        </form>
                     </div>
 
                     <div class="card-body">
@@ -51,7 +63,6 @@
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
-
                             <tbody>
                                 {% for object in object_list %}
                                 <tr>
@@ -60,23 +71,18 @@
                                     <td>{{ object.organization.name }}</td>
                                     <td>{{ object.student.program.prog_name }}</td>
                                     <td>{{ object.date_joined }}</td>
-
                                     <td>
                                         <a href="{% url 'orgmember-update' object.id %}">Edit</a> |
                                         <a href="{% url 'orgmember-delete' object.id %}">Delete</a>
                                     </td>
                                 </tr>
-
                                 {% empty %}
                                 <tr>
-                                    <td colspan="6" style="text-align: center">
-                                        <p class="text-sm font-weight-bold mb-0">No Records Found</p>
-                                    </td>
+                                    <td colspan="6" class="text-center">No records found</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
-
                         {% include 'includes/pagination.html' %}
                     </div>
 
